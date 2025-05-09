@@ -28,11 +28,6 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
-/**
- * Model TestTable
- * 
- */
-export type TestTable = $Result.DefaultSelection<Prisma.$TestTablePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -188,16 +183,6 @@ export class PrismaClient<
     * ```
     */
   get profile(): Prisma.ProfileDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.testTable`: Exposes CRUD operations for the **TestTable** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more TestTables
-    * const testTables = await prisma.testTable.findMany()
-    * ```
-    */
-  get testTable(): Prisma.TestTableDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -640,8 +625,7 @@ export namespace Prisma {
   export const ModelName: {
     Post: 'Post',
     User: 'User',
-    Profile: 'Profile',
-    TestTable: 'TestTable'
+    Profile: 'Profile'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -660,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "user" | "profile" | "testTable"
+      modelProps: "post" | "user" | "profile"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -886,80 +870,6 @@ export namespace Prisma {
           }
         }
       }
-      TestTable: {
-        payload: Prisma.$TestTablePayload<ExtArgs>
-        fields: Prisma.TestTableFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.TestTableFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.TestTableFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>
-          }
-          findFirst: {
-            args: Prisma.TestTableFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.TestTableFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>
-          }
-          findMany: {
-            args: Prisma.TestTableFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>[]
-          }
-          create: {
-            args: Prisma.TestTableCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>
-          }
-          createMany: {
-            args: Prisma.TestTableCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.TestTableCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>[]
-          }
-          delete: {
-            args: Prisma.TestTableDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>
-          }
-          update: {
-            args: Prisma.TestTableUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>
-          }
-          deleteMany: {
-            args: Prisma.TestTableDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.TestTableUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.TestTableUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>[]
-          }
-          upsert: {
-            args: Prisma.TestTableUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TestTablePayload>
-          }
-          aggregate: {
-            args: Prisma.TestTableAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTestTable>
-          }
-          groupBy: {
-            args: Prisma.TestTableGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TestTableGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.TestTableCountArgs<ExtArgs>
-            result: $Utils.Optional<TestTableCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1047,7 +957,6 @@ export namespace Prisma {
     post?: PostOmit
     user?: UserOmit
     profile?: ProfileOmit
-    testTable?: TestTableOmit
   }
 
   /* Types for Logging */
@@ -1137,6 +1046,36 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    posts: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | UserCountOutputTypeCountPostsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+  }
+
 
   /**
    * Models
@@ -1156,10 +1095,12 @@ export namespace Prisma {
 
   export type PostAvgAggregateOutputType = {
     id: number | null
+    authorId: number | null
   }
 
   export type PostSumAggregateOutputType = {
     id: number | null
+    authorId: number | null
   }
 
   export type PostMinAggregateOutputType = {
@@ -1169,6 +1110,7 @@ export namespace Prisma {
     published: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    authorId: number | null
   }
 
   export type PostMaxAggregateOutputType = {
@@ -1178,6 +1120,7 @@ export namespace Prisma {
     published: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    authorId: number | null
   }
 
   export type PostCountAggregateOutputType = {
@@ -1187,16 +1130,19 @@ export namespace Prisma {
     published: number
     createdAt: number
     updatedAt: number
+    authorId: number
     _all: number
   }
 
 
   export type PostAvgAggregateInputType = {
     id?: true
+    authorId?: true
   }
 
   export type PostSumAggregateInputType = {
     id?: true
+    authorId?: true
   }
 
   export type PostMinAggregateInputType = {
@@ -1206,6 +1152,7 @@ export namespace Prisma {
     published?: true
     createdAt?: true
     updatedAt?: true
+    authorId?: true
   }
 
   export type PostMaxAggregateInputType = {
@@ -1215,6 +1162,7 @@ export namespace Prisma {
     published?: true
     createdAt?: true
     updatedAt?: true
+    authorId?: true
   }
 
   export type PostCountAggregateInputType = {
@@ -1224,6 +1172,7 @@ export namespace Prisma {
     published?: true
     createdAt?: true
     updatedAt?: true
+    authorId?: true
     _all?: true
   }
 
@@ -1320,6 +1269,7 @@ export namespace Prisma {
     published: boolean
     createdAt: Date
     updatedAt: Date
+    authorId: number
     _count: PostCountAggregateOutputType | null
     _avg: PostAvgAggregateOutputType | null
     _sum: PostSumAggregateOutputType | null
@@ -1348,6 +1298,8 @@ export namespace Prisma {
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    authorId?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
   export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1357,6 +1309,8 @@ export namespace Prisma {
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    authorId?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
   export type PostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1366,6 +1320,8 @@ export namespace Prisma {
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    authorId?: boolean
+    author?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
   export type PostSelectScalar = {
@@ -1375,13 +1331,25 @@ export namespace Prisma {
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    authorId?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "published" | "createdAt" | "updatedAt" | "authorId", ExtArgs["result"]["post"]>
+  export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Post"
-    objects: {}
+    objects: {
+      author: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
@@ -1389,6 +1357,7 @@ export namespace Prisma {
       published: boolean
       createdAt: Date
       updatedAt: Date
+      authorId: number
     }, ExtArgs["result"]["post"]>
     composites: {}
   }
@@ -1783,6 +1752,7 @@ export namespace Prisma {
    */
   export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1818,6 +1788,7 @@ export namespace Prisma {
     readonly published: FieldRef<"Post", 'Boolean'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
     readonly updatedAt: FieldRef<"Post", 'DateTime'>
+    readonly authorId: FieldRef<"Post", 'Int'>
   }
     
 
@@ -1834,6 +1805,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * Filter, which Post to fetch.
      */
@@ -1853,6 +1828,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where: PostWhereUniqueInput
@@ -1870,6 +1849,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * Filter, which Post to fetch.
      */
@@ -1919,6 +1902,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Post to fetch.
      */
     where?: PostWhereInput
@@ -1967,6 +1954,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * Filter, which Posts to fetch.
      */
     where?: PostWhereInput
@@ -2010,6 +2001,10 @@ export namespace Prisma {
      */
     omit?: PostOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
      * The data needed to create a Post.
      */
     data: XOR<PostCreateInput, PostUncheckedCreateInput>
@@ -2043,6 +2038,10 @@ export namespace Prisma {
      */
     data: PostCreateManyInput | PostCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2057,6 +2056,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * The data needed to update a Post.
      */
@@ -2109,6 +2112,10 @@ export namespace Prisma {
      * Limit how many Posts to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2123,6 +2130,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * The filter to search for the Post to update in case it exists.
      */
@@ -2149,6 +2160,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
     /**
      * Filter which Post to delete.
      */
@@ -2181,6 +2196,10 @@ export namespace Prisma {
      * Omit specific fields from the Post
      */
     omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
   }
 
 
@@ -2390,6 +2409,9 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    posts?: boolean | User$postsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2420,10 +2442,20 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | User$postsArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      posts: Prisma.$PostPayload<ExtArgs>[]
+      profile: Prisma.$ProfilePayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       email: string
@@ -2825,6 +2857,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2877,6 +2911,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -2895,6 +2933,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -2912,6 +2954,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -2961,6 +3007,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -3009,6 +3059,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -3051,6 +3105,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -3099,6 +3157,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -3166,6 +3228,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -3192,6 +3258,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -3212,6 +3282,49 @@ export namespace Prisma {
   }
 
   /**
+   * User.posts
+   */
+  export type User$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    cursor?: PostWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * User.profile
+   */
+  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Profile
+     */
+    select?: ProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Profile
+     */
+    omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    where?: ProfileWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3223,6 +3336,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -3240,10 +3357,12 @@ export namespace Prisma {
 
   export type ProfileAvgAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type ProfileSumAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type ProfileMinAggregateOutputType = {
@@ -3251,6 +3370,7 @@ export namespace Prisma {
     bio: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    userId: number | null
   }
 
   export type ProfileMaxAggregateOutputType = {
@@ -3258,6 +3378,7 @@ export namespace Prisma {
     bio: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    userId: number | null
   }
 
   export type ProfileCountAggregateOutputType = {
@@ -3265,16 +3386,19 @@ export namespace Prisma {
     bio: number
     createdAt: number
     updatedAt: number
+    userId: number
     _all: number
   }
 
 
   export type ProfileAvgAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type ProfileSumAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type ProfileMinAggregateInputType = {
@@ -3282,6 +3406,7 @@ export namespace Prisma {
     bio?: true
     createdAt?: true
     updatedAt?: true
+    userId?: true
   }
 
   export type ProfileMaxAggregateInputType = {
@@ -3289,6 +3414,7 @@ export namespace Prisma {
     bio?: true
     createdAt?: true
     updatedAt?: true
+    userId?: true
   }
 
   export type ProfileCountAggregateInputType = {
@@ -3296,6 +3422,7 @@ export namespace Prisma {
     bio?: true
     createdAt?: true
     updatedAt?: true
+    userId?: true
     _all?: true
   }
 
@@ -3390,6 +3517,7 @@ export namespace Prisma {
     bio: string
     createdAt: Date
     updatedAt: Date
+    userId: number
     _count: ProfileCountAggregateOutputType | null
     _avg: ProfileAvgAggregateOutputType | null
     _sum: ProfileSumAggregateOutputType | null
@@ -3416,6 +3544,8 @@ export namespace Prisma {
     bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3423,6 +3553,8 @@ export namespace Prisma {
     bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3430,6 +3562,8 @@ export namespace Prisma {
     bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
   export type ProfileSelectScalar = {
@@ -3437,18 +3571,31 @@ export namespace Prisma {
     bio?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    userId?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bio" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bio" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["profile"]>
+  export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $ProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Profile"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       bio: string
       createdAt: Date
       updatedAt: Date
+      userId: number
     }, ExtArgs["result"]["profile"]>
     composites: {}
   }
@@ -3843,6 +3990,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3876,6 +4024,7 @@ export namespace Prisma {
     readonly bio: FieldRef<"Profile", 'String'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
     readonly updatedAt: FieldRef<"Profile", 'DateTime'>
+    readonly userId: FieldRef<"Profile", 'Int'>
   }
     
 
@@ -3892,6 +4041,10 @@ export namespace Prisma {
      * Omit specific fields from the Profile
      */
     omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
     /**
      * Filter, which Profile to fetch.
      */
@@ -3911,6 +4064,10 @@ export namespace Prisma {
      */
     omit?: ProfileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    /**
      * Filter, which Profile to fetch.
      */
     where: ProfileWhereUniqueInput
@@ -3928,6 +4085,10 @@ export namespace Prisma {
      * Omit specific fields from the Profile
      */
     omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
     /**
      * Filter, which Profile to fetch.
      */
@@ -3977,6 +4138,10 @@ export namespace Prisma {
      */
     omit?: ProfileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    /**
      * Filter, which Profile to fetch.
      */
     where?: ProfileWhereInput
@@ -4025,6 +4190,10 @@ export namespace Prisma {
      */
     omit?: ProfileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    /**
      * Filter, which Profiles to fetch.
      */
     where?: ProfileWhereInput
@@ -4068,6 +4237,10 @@ export namespace Prisma {
      */
     omit?: ProfileOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
+    /**
      * The data needed to create a Profile.
      */
     data: XOR<ProfileCreateInput, ProfileUncheckedCreateInput>
@@ -4101,6 +4274,10 @@ export namespace Prisma {
      */
     data: ProfileCreateManyInput | ProfileCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4115,6 +4292,10 @@ export namespace Prisma {
      * Omit specific fields from the Profile
      */
     omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
     /**
      * The data needed to update a Profile.
      */
@@ -4167,6 +4348,10 @@ export namespace Prisma {
      * Limit how many Profiles to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4181,6 +4366,10 @@ export namespace Prisma {
      * Omit specific fields from the Profile
      */
     omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
     /**
      * The filter to search for the Profile to update in case it exists.
      */
@@ -4207,6 +4396,10 @@ export namespace Prisma {
      * Omit specific fields from the Profile
      */
     omit?: ProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfileInclude<ExtArgs> | null
     /**
      * Filter which Profile to delete.
      */
@@ -4239,1009 +4432,10 @@ export namespace Prisma {
      * Omit specific fields from the Profile
      */
     omit?: ProfileOmit<ExtArgs> | null
-  }
-
-
-  /**
-   * Model TestTable
-   */
-
-  export type AggregateTestTable = {
-    _count: TestTableCountAggregateOutputType | null
-    _avg: TestTableAvgAggregateOutputType | null
-    _sum: TestTableSumAggregateOutputType | null
-    _min: TestTableMinAggregateOutputType | null
-    _max: TestTableMaxAggregateOutputType | null
-  }
-
-  export type TestTableAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type TestTableSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type TestTableMinAggregateOutputType = {
-    id: number | null
-    name: string | null
-    createdAt: Date | null
-  }
-
-  export type TestTableMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
-    createdAt: Date | null
-  }
-
-  export type TestTableCountAggregateOutputType = {
-    id: number
-    name: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type TestTableAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type TestTableSumAggregateInputType = {
-    id?: true
-  }
-
-  export type TestTableMinAggregateInputType = {
-    id?: true
-    name?: true
-    createdAt?: true
-  }
-
-  export type TestTableMaxAggregateInputType = {
-    id?: true
-    name?: true
-    createdAt?: true
-  }
-
-  export type TestTableCountAggregateInputType = {
-    id?: true
-    name?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type TestTableAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which TestTable to aggregate.
+     * Choose, which related nodes to fetch as well
      */
-    where?: TestTableWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TestTables to fetch.
-     */
-    orderBy?: TestTableOrderByWithRelationInput | TestTableOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: TestTableWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TestTables from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TestTables.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned TestTables
-    **/
-    _count?: true | TestTableCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: TestTableAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: TestTableSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: TestTableMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: TestTableMaxAggregateInputType
-  }
-
-  export type GetTestTableAggregateType<T extends TestTableAggregateArgs> = {
-        [P in keyof T & keyof AggregateTestTable]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTestTable[P]>
-      : GetScalarType<T[P], AggregateTestTable[P]>
-  }
-
-
-
-
-  export type TestTableGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TestTableWhereInput
-    orderBy?: TestTableOrderByWithAggregationInput | TestTableOrderByWithAggregationInput[]
-    by: TestTableScalarFieldEnum[] | TestTableScalarFieldEnum
-    having?: TestTableScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: TestTableCountAggregateInputType | true
-    _avg?: TestTableAvgAggregateInputType
-    _sum?: TestTableSumAggregateInputType
-    _min?: TestTableMinAggregateInputType
-    _max?: TestTableMaxAggregateInputType
-  }
-
-  export type TestTableGroupByOutputType = {
-    id: number
-    name: string | null
-    createdAt: Date
-    _count: TestTableCountAggregateOutputType | null
-    _avg: TestTableAvgAggregateOutputType | null
-    _sum: TestTableSumAggregateOutputType | null
-    _min: TestTableMinAggregateOutputType | null
-    _max: TestTableMaxAggregateOutputType | null
-  }
-
-  type GetTestTableGroupByPayload<T extends TestTableGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<TestTableGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof TestTableGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], TestTableGroupByOutputType[P]>
-            : GetScalarType<T[P], TestTableGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type TestTableSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["testTable"]>
-
-  export type TestTableSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["testTable"]>
-
-  export type TestTableSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["testTable"]>
-
-  export type TestTableSelectScalar = {
-    id?: boolean
-    name?: boolean
-    createdAt?: boolean
-  }
-
-  export type TestTableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt", ExtArgs["result"]["testTable"]>
-
-  export type $TestTablePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "TestTable"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string | null
-      createdAt: Date
-    }, ExtArgs["result"]["testTable"]>
-    composites: {}
-  }
-
-  type TestTableGetPayload<S extends boolean | null | undefined | TestTableDefaultArgs> = $Result.GetResult<Prisma.$TestTablePayload, S>
-
-  type TestTableCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<TestTableFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: TestTableCountAggregateInputType | true
-    }
-
-  export interface TestTableDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TestTable'], meta: { name: 'TestTable' } }
-    /**
-     * Find zero or one TestTable that matches the filter.
-     * @param {TestTableFindUniqueArgs} args - Arguments to find a TestTable
-     * @example
-     * // Get one TestTable
-     * const testTable = await prisma.testTable.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends TestTableFindUniqueArgs>(args: SelectSubset<T, TestTableFindUniqueArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one TestTable that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {TestTableFindUniqueOrThrowArgs} args - Arguments to find a TestTable
-     * @example
-     * // Get one TestTable
-     * const testTable = await prisma.testTable.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends TestTableFindUniqueOrThrowArgs>(args: SelectSubset<T, TestTableFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first TestTable that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TestTableFindFirstArgs} args - Arguments to find a TestTable
-     * @example
-     * // Get one TestTable
-     * const testTable = await prisma.testTable.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends TestTableFindFirstArgs>(args?: SelectSubset<T, TestTableFindFirstArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first TestTable that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TestTableFindFirstOrThrowArgs} args - Arguments to find a TestTable
-     * @example
-     * // Get one TestTable
-     * const testTable = await prisma.testTable.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends TestTableFindFirstOrThrowArgs>(args?: SelectSubset<T, TestTableFindFirstOrThrowArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more TestTables that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TestTableFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all TestTables
-     * const testTables = await prisma.testTable.findMany()
-     * 
-     * // Get first 10 TestTables
-     * const testTables = await prisma.testTable.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const testTableWithIdOnly = await prisma.testTable.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends TestTableFindManyArgs>(args?: SelectSubset<T, TestTableFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a TestTable.
-     * @param {TestTableCreateArgs} args - Arguments to create a TestTable.
-     * @example
-     * // Create one TestTable
-     * const TestTable = await prisma.testTable.create({
-     *   data: {
-     *     // ... data to create a TestTable
-     *   }
-     * })
-     * 
-     */
-    create<T extends TestTableCreateArgs>(args: SelectSubset<T, TestTableCreateArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many TestTables.
-     * @param {TestTableCreateManyArgs} args - Arguments to create many TestTables.
-     * @example
-     * // Create many TestTables
-     * const testTable = await prisma.testTable.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends TestTableCreateManyArgs>(args?: SelectSubset<T, TestTableCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many TestTables and returns the data saved in the database.
-     * @param {TestTableCreateManyAndReturnArgs} args - Arguments to create many TestTables.
-     * @example
-     * // Create many TestTables
-     * const testTable = await prisma.testTable.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many TestTables and only return the `id`
-     * const testTableWithIdOnly = await prisma.testTable.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends TestTableCreateManyAndReturnArgs>(args?: SelectSubset<T, TestTableCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a TestTable.
-     * @param {TestTableDeleteArgs} args - Arguments to delete one TestTable.
-     * @example
-     * // Delete one TestTable
-     * const TestTable = await prisma.testTable.delete({
-     *   where: {
-     *     // ... filter to delete one TestTable
-     *   }
-     * })
-     * 
-     */
-    delete<T extends TestTableDeleteArgs>(args: SelectSubset<T, TestTableDeleteArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one TestTable.
-     * @param {TestTableUpdateArgs} args - Arguments to update one TestTable.
-     * @example
-     * // Update one TestTable
-     * const testTable = await prisma.testTable.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends TestTableUpdateArgs>(args: SelectSubset<T, TestTableUpdateArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more TestTables.
-     * @param {TestTableDeleteManyArgs} args - Arguments to filter TestTables to delete.
-     * @example
-     * // Delete a few TestTables
-     * const { count } = await prisma.testTable.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends TestTableDeleteManyArgs>(args?: SelectSubset<T, TestTableDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more TestTables.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TestTableUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many TestTables
-     * const testTable = await prisma.testTable.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends TestTableUpdateManyArgs>(args: SelectSubset<T, TestTableUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more TestTables and returns the data updated in the database.
-     * @param {TestTableUpdateManyAndReturnArgs} args - Arguments to update many TestTables.
-     * @example
-     * // Update many TestTables
-     * const testTable = await prisma.testTable.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more TestTables and only return the `id`
-     * const testTableWithIdOnly = await prisma.testTable.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends TestTableUpdateManyAndReturnArgs>(args: SelectSubset<T, TestTableUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one TestTable.
-     * @param {TestTableUpsertArgs} args - Arguments to update or create a TestTable.
-     * @example
-     * // Update or create a TestTable
-     * const testTable = await prisma.testTable.upsert({
-     *   create: {
-     *     // ... data to create a TestTable
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the TestTable we want to update
-     *   }
-     * })
-     */
-    upsert<T extends TestTableUpsertArgs>(args: SelectSubset<T, TestTableUpsertArgs<ExtArgs>>): Prisma__TestTableClient<$Result.GetResult<Prisma.$TestTablePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of TestTables.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TestTableCountArgs} args - Arguments to filter TestTables to count.
-     * @example
-     * // Count the number of TestTables
-     * const count = await prisma.testTable.count({
-     *   where: {
-     *     // ... the filter for the TestTables we want to count
-     *   }
-     * })
-    **/
-    count<T extends TestTableCountArgs>(
-      args?: Subset<T, TestTableCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], TestTableCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a TestTable.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TestTableAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends TestTableAggregateArgs>(args: Subset<T, TestTableAggregateArgs>): Prisma.PrismaPromise<GetTestTableAggregateType<T>>
-
-    /**
-     * Group by TestTable.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TestTableGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends TestTableGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TestTableGroupByArgs['orderBy'] }
-        : { orderBy?: TestTableGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, TestTableGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTestTableGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the TestTable model
-   */
-  readonly fields: TestTableFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for TestTable.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__TestTableClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the TestTable model
-   */
-  interface TestTableFieldRefs {
-    readonly id: FieldRef<"TestTable", 'Int'>
-    readonly name: FieldRef<"TestTable", 'String'>
-    readonly createdAt: FieldRef<"TestTable", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * TestTable findUnique
-   */
-  export type TestTableFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * Filter, which TestTable to fetch.
-     */
-    where: TestTableWhereUniqueInput
-  }
-
-  /**
-   * TestTable findUniqueOrThrow
-   */
-  export type TestTableFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * Filter, which TestTable to fetch.
-     */
-    where: TestTableWhereUniqueInput
-  }
-
-  /**
-   * TestTable findFirst
-   */
-  export type TestTableFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * Filter, which TestTable to fetch.
-     */
-    where?: TestTableWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TestTables to fetch.
-     */
-    orderBy?: TestTableOrderByWithRelationInput | TestTableOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TestTables.
-     */
-    cursor?: TestTableWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TestTables from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TestTables.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TestTables.
-     */
-    distinct?: TestTableScalarFieldEnum | TestTableScalarFieldEnum[]
-  }
-
-  /**
-   * TestTable findFirstOrThrow
-   */
-  export type TestTableFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * Filter, which TestTable to fetch.
-     */
-    where?: TestTableWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TestTables to fetch.
-     */
-    orderBy?: TestTableOrderByWithRelationInput | TestTableOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TestTables.
-     */
-    cursor?: TestTableWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TestTables from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TestTables.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TestTables.
-     */
-    distinct?: TestTableScalarFieldEnum | TestTableScalarFieldEnum[]
-  }
-
-  /**
-   * TestTable findMany
-   */
-  export type TestTableFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * Filter, which TestTables to fetch.
-     */
-    where?: TestTableWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TestTables to fetch.
-     */
-    orderBy?: TestTableOrderByWithRelationInput | TestTableOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing TestTables.
-     */
-    cursor?: TestTableWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TestTables from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TestTables.
-     */
-    skip?: number
-    distinct?: TestTableScalarFieldEnum | TestTableScalarFieldEnum[]
-  }
-
-  /**
-   * TestTable create
-   */
-  export type TestTableCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * The data needed to create a TestTable.
-     */
-    data?: XOR<TestTableCreateInput, TestTableUncheckedCreateInput>
-  }
-
-  /**
-   * TestTable createMany
-   */
-  export type TestTableCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many TestTables.
-     */
-    data: TestTableCreateManyInput | TestTableCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * TestTable createManyAndReturn
-   */
-  export type TestTableCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * The data used to create many TestTables.
-     */
-    data: TestTableCreateManyInput | TestTableCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * TestTable update
-   */
-  export type TestTableUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * The data needed to update a TestTable.
-     */
-    data: XOR<TestTableUpdateInput, TestTableUncheckedUpdateInput>
-    /**
-     * Choose, which TestTable to update.
-     */
-    where: TestTableWhereUniqueInput
-  }
-
-  /**
-   * TestTable updateMany
-   */
-  export type TestTableUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update TestTables.
-     */
-    data: XOR<TestTableUpdateManyMutationInput, TestTableUncheckedUpdateManyInput>
-    /**
-     * Filter which TestTables to update
-     */
-    where?: TestTableWhereInput
-    /**
-     * Limit how many TestTables to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * TestTable updateManyAndReturn
-   */
-  export type TestTableUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * The data used to update TestTables.
-     */
-    data: XOR<TestTableUpdateManyMutationInput, TestTableUncheckedUpdateManyInput>
-    /**
-     * Filter which TestTables to update
-     */
-    where?: TestTableWhereInput
-    /**
-     * Limit how many TestTables to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * TestTable upsert
-   */
-  export type TestTableUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * The filter to search for the TestTable to update in case it exists.
-     */
-    where: TestTableWhereUniqueInput
-    /**
-     * In case the TestTable found by the `where` argument doesn't exist, create a new TestTable with this data.
-     */
-    create: XOR<TestTableCreateInput, TestTableUncheckedCreateInput>
-    /**
-     * In case the TestTable was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<TestTableUpdateInput, TestTableUncheckedUpdateInput>
-  }
-
-  /**
-   * TestTable delete
-   */
-  export type TestTableDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
-    /**
-     * Filter which TestTable to delete.
-     */
-    where: TestTableWhereUniqueInput
-  }
-
-  /**
-   * TestTable deleteMany
-   */
-  export type TestTableDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which TestTables to delete
-     */
-    where?: TestTableWhereInput
-    /**
-     * Limit how many TestTables to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * TestTable without action
-   */
-  export type TestTableDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TestTable
-     */
-    select?: TestTableSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TestTable
-     */
-    omit?: TestTableOmit<ExtArgs> | null
+    include?: ProfileInclude<ExtArgs> | null
   }
 
 
@@ -5265,7 +4459,8 @@ export namespace Prisma {
     content: 'content',
     published: 'published',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    authorId: 'authorId'
   };
 
   export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
@@ -5287,19 +4482,11 @@ export namespace Prisma {
     id: 'id',
     bio: 'bio',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    userId: 'userId'
   };
 
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
-
-
-  export const TestTableScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    createdAt: 'createdAt'
-  };
-
-  export type TestTableScalarFieldEnum = (typeof TestTableScalarFieldEnum)[keyof typeof TestTableScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5407,6 +4594,8 @@ export namespace Prisma {
     published?: BoolFilter<"Post"> | boolean
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
+    authorId?: IntFilter<"Post"> | number
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type PostOrderByWithRelationInput = {
@@ -5416,6 +4605,8 @@ export namespace Prisma {
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    authorId?: SortOrder
+    author?: UserOrderByWithRelationInput
   }
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -5428,6 +4619,8 @@ export namespace Prisma {
     published?: BoolFilter<"Post"> | boolean
     createdAt?: DateTimeFilter<"Post"> | Date | string
     updatedAt?: DateTimeFilter<"Post"> | Date | string
+    authorId?: IntFilter<"Post"> | number
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type PostOrderByWithAggregationInput = {
@@ -5437,6 +4630,7 @@ export namespace Prisma {
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    authorId?: SortOrder
     _count?: PostCountOrderByAggregateInput
     _avg?: PostAvgOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -5454,6 +4648,7 @@ export namespace Prisma {
     published?: BoolWithAggregatesFilter<"Post"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+    authorId?: IntWithAggregatesFilter<"Post"> | number
   }
 
   export type UserWhereInput = {
@@ -5466,6 +4661,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    posts?: PostListRelationFilter
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5475,6 +4672,8 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    posts?: PostOrderByRelationAggregateInput
+    profile?: ProfileOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5487,6 +4686,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    posts?: PostListRelationFilter
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5523,6 +4724,8 @@ export namespace Prisma {
     bio?: StringFilter<"Profile"> | string
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
+    userId?: IntFilter<"Profile"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -5530,23 +4733,28 @@ export namespace Prisma {
     bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    userId?: number
     AND?: ProfileWhereInput | ProfileWhereInput[]
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     bio?: StringFilter<"Profile"> | string
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
-  }, "id">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
 
   export type ProfileOrderByWithAggregationInput = {
     id?: SortOrder
     bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
     _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
@@ -5562,50 +4770,7 @@ export namespace Prisma {
     bio?: StringWithAggregatesFilter<"Profile"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
-  }
-
-  export type TestTableWhereInput = {
-    AND?: TestTableWhereInput | TestTableWhereInput[]
-    OR?: TestTableWhereInput[]
-    NOT?: TestTableWhereInput | TestTableWhereInput[]
-    id?: IntFilter<"TestTable"> | number
-    name?: StringNullableFilter<"TestTable"> | string | null
-    createdAt?: DateTimeFilter<"TestTable"> | Date | string
-  }
-
-  export type TestTableOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type TestTableWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: TestTableWhereInput | TestTableWhereInput[]
-    OR?: TestTableWhereInput[]
-    NOT?: TestTableWhereInput | TestTableWhereInput[]
-    name?: StringNullableFilter<"TestTable"> | string | null
-    createdAt?: DateTimeFilter<"TestTable"> | Date | string
-  }, "id">
-
-  export type TestTableOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    _count?: TestTableCountOrderByAggregateInput
-    _avg?: TestTableAvgOrderByAggregateInput
-    _max?: TestTableMaxOrderByAggregateInput
-    _min?: TestTableMinOrderByAggregateInput
-    _sum?: TestTableSumOrderByAggregateInput
-  }
-
-  export type TestTableScalarWhereWithAggregatesInput = {
-    AND?: TestTableScalarWhereWithAggregatesInput | TestTableScalarWhereWithAggregatesInput[]
-    OR?: TestTableScalarWhereWithAggregatesInput[]
-    NOT?: TestTableScalarWhereWithAggregatesInput | TestTableScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"TestTable"> | number
-    name?: StringNullableWithAggregatesFilter<"TestTable"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"TestTable"> | Date | string
+    userId?: IntWithAggregatesFilter<"Profile"> | number
   }
 
   export type PostCreateInput = {
@@ -5614,6 +4779,7 @@ export namespace Prisma {
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutPostsInput
   }
 
   export type PostUncheckedCreateInput = {
@@ -5623,6 +4789,7 @@ export namespace Prisma {
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    authorId: number
   }
 
   export type PostUpdateInput = {
@@ -5631,6 +4798,7 @@ export namespace Prisma {
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutPostsNestedInput
   }
 
   export type PostUncheckedUpdateInput = {
@@ -5640,6 +4808,7 @@ export namespace Prisma {
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostCreateManyInput = {
@@ -5649,6 +4818,7 @@ export namespace Prisma {
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    authorId: number
   }
 
   export type PostUpdateManyMutationInput = {
@@ -5666,6 +4836,7 @@ export namespace Prisma {
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserCreateInput = {
@@ -5674,6 +4845,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    posts?: PostCreateNestedManyWithoutAuthorInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -5683,6 +4856,8 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -5691,6 +4866,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5700,6 +4877,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5732,6 +4911,7 @@ export namespace Prisma {
     bio: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -5739,12 +4919,14 @@ export namespace Prisma {
     bio: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    userId: number
   }
 
   export type ProfileUpdateInput = {
     bio?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -5752,6 +4934,7 @@ export namespace Prisma {
     bio?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ProfileCreateManyInput = {
@@ -5759,6 +4942,7 @@ export namespace Prisma {
     bio: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    userId: number
   }
 
   export type ProfileUpdateManyMutationInput = {
@@ -5772,45 +4956,7 @@ export namespace Prisma {
     bio?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TestTableCreateInput = {
-    name?: string | null
-    createdAt?: Date | string
-  }
-
-  export type TestTableUncheckedCreateInput = {
-    id?: number
-    name?: string | null
-    createdAt?: Date | string
-  }
-
-  export type TestTableUpdateInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TestTableUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TestTableCreateManyInput = {
-    id?: number
-    name?: string | null
-    createdAt?: Date | string
-  }
-
-  export type TestTableUpdateManyMutationInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TestTableUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5855,6 +5001,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -5862,10 +5013,12 @@ export namespace Prisma {
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    authorId?: SortOrder
   }
 
   export type PostAvgOrderByAggregateInput = {
     id?: SortOrder
+    authorId?: SortOrder
   }
 
   export type PostMaxOrderByAggregateInput = {
@@ -5875,6 +5028,7 @@ export namespace Prisma {
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    authorId?: SortOrder
   }
 
   export type PostMinOrderByAggregateInput = {
@@ -5884,10 +5038,12 @@ export namespace Prisma {
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    authorId?: SortOrder
   }
 
   export type PostSumOrderByAggregateInput = {
     id?: SortOrder
+    authorId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5961,9 +5117,24 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type PostListRelationFilter = {
+    every?: PostWhereInput
+    some?: PostWhereInput
+    none?: PostWhereInput
+  }
+
+  export type ProfileNullableScalarRelationFilter = {
+    is?: ProfileWhereInput | null
+    isNot?: ProfileWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type PostOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -6024,10 +5195,12 @@ export namespace Prisma {
     bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
   export type ProfileAvgOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
   }
 
   export type ProfileMaxOrderByAggregateInput = {
@@ -6035,6 +5208,7 @@ export namespace Prisma {
     bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
   export type ProfileMinOrderByAggregateInput = {
@@ -6042,36 +5216,18 @@ export namespace Prisma {
     bio?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    userId?: SortOrder
   }
 
   export type ProfileSumOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
   }
 
-  export type TestTableCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type TestTableAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type TestTableMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type TestTableMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type TestTableSumOrderByAggregateInput = {
-    id?: SortOrder
+  export type UserCreateNestedOneWithoutPostsInput = {
+    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6086,6 +5242,14 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type UserUpdateOneRequiredWithoutPostsNestedInput = {
+    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+    upsert?: UserUpsertWithoutPostsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -6094,8 +5258,96 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type PostCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type ProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type PostUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    connect?: ProfileWhereUniqueInput
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type PostUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput | PostUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAuthorInput | PostUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAuthorInput | PostUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type ProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    upsert?: ProfileUpsertWithoutUserInput
+    disconnect?: ProfileWhereInput | boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput> | PostCreateWithoutAuthorInput[] | PostUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutAuthorInput | PostCreateOrConnectWithoutAuthorInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutAuthorInput | PostUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: PostCreateManyAuthorInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutAuthorInput | PostUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutAuthorInput | PostUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    upsert?: ProfileUpsertWithoutUserInput
+    disconnect?: ProfileWhereInput | boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCreateNestedOneWithoutProfileInput = {
+    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutProfileNestedInput = {
+    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
+    upsert?: UserUpsertWithoutProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -6245,6 +5497,247 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type UserCreateWithoutPostsInput = {
+    email: string
+    name?: string | null
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPostsInput = {
+    id?: number
+    email: string
+    name?: string | null
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPostsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+  }
+
+  export type UserUpsertWithoutPostsInput = {
+    update: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
+    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPostsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type UserUpdateWithoutPostsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPostsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type PostCreateWithoutAuthorInput = {
+    title: string
+    content: string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostUncheckedCreateWithoutAuthorInput = {
+    id?: number
+    title: string
+    content: string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostCreateOrConnectWithoutAuthorInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type PostCreateManyAuthorInputEnvelope = {
+    data: PostCreateManyAuthorInput | PostCreateManyAuthorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProfileCreateWithoutUserInput = {
+    bio: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProfileUncheckedCreateWithoutUserInput = {
+    id?: number
+    bio: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProfileCreateOrConnectWithoutUserInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: PostWhereUniqueInput
+    update: XOR<PostUpdateWithoutAuthorInput, PostUncheckedUpdateWithoutAuthorInput>
+    create: XOR<PostCreateWithoutAuthorInput, PostUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type PostUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: PostWhereUniqueInput
+    data: XOR<PostUpdateWithoutAuthorInput, PostUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type PostUpdateManyWithWhereWithoutAuthorInput = {
+    where: PostScalarWhereInput
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type PostScalarWhereInput = {
+    AND?: PostScalarWhereInput | PostScalarWhereInput[]
+    OR?: PostScalarWhereInput[]
+    NOT?: PostScalarWhereInput | PostScalarWhereInput[]
+    id?: IntFilter<"Post"> | number
+    title?: StringFilter<"Post"> | string
+    content?: StringFilter<"Post"> | string
+    published?: BoolFilter<"Post"> | boolean
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+    authorId?: IntFilter<"Post"> | number
+  }
+
+  export type ProfileUpsertWithoutUserInput = {
+    update: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ProfileUpdateWithoutUserInput = {
+    bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProfileUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    bio?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutProfileInput = {
+    email: string
+    name?: string | null
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    posts?: PostCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutProfileInput = {
+    id?: number
+    email: string
+    name?: string | null
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutProfileInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+  }
+
+  export type UserUpsertWithoutProfileInput = {
+    update: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type UserUpdateWithoutProfileInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    posts?: PostUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type PostCreateManyAuthorInput = {
+    id?: number
+    title: string
+    content: string
+    published?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PostUpdateWithoutAuthorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostUncheckedUpdateWithoutAuthorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostUncheckedUpdateManyWithoutAuthorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    published?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

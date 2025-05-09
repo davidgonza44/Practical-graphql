@@ -11,6 +11,8 @@ model Post {
   published Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
 }
 
 model User {
@@ -20,6 +22,8 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  posts     Post[]
+  profile   Profile?
 }
 
 model Profile {
@@ -27,12 +31,8 @@ model Profile {
   bio       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model TestTable {
-  id        Int      @id @default(autoincrement())
-  name      String?
-  createdAt DateTime @default(now())
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 generator client {

@@ -126,7 +126,8 @@ exports.Prisma.PostScalarFieldEnum = {
   content: 'content',
   published: 'published',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  authorId: 'authorId'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -142,13 +143,8 @@ exports.Prisma.ProfileScalarFieldEnum = {
   id: 'id',
   bio: 'bio',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.TestTableScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt'
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -170,8 +166,7 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Post: 'Post',
   User: 'User',
-  Profile: 'Profile',
-  TestTable: 'TestTable'
+  Profile: 'Profile'
 };
 
 /**
