@@ -22,11 +22,21 @@ interface UpdatePostArgs{
 }
 
 interface SignupArgs{
-    email : string;
+    credentials : {
+        email : string;
+        password : string;
+    }
     name : string;
-    password : string;
     bio : string;
 }
+
+interface SigninArgs {
+    credentials: {
+        email : string,
+        password : string
+    }
+}
+
 
 interface UserPayload {
     userErrors : { message : string }[];
@@ -34,7 +44,21 @@ interface UserPayload {
 }
 
 export const Mutation = {
-    signup : async (_ : any, { email , name, password, bio } : SignupArgs, { prisma } : Context) : Promise<UserPayload>=> {
+    signin :async(_ : any, { credentials } : SigninArgs , { prisma } : Context) : Promise<UserPayload> => {
+        const { email, password } = credentials
+        const user = await prisma.user.findUnique({where : {email}})
+        if (!user) return {
+            userErrors : [{ message : "Invalid credentials"}],
+            token : null
+        }
+        const isMatch = bcrypt.compare(password, user.password)
+        if (!isMatch) return {userErrors : [{message : "Invalid credentials"}], token : null}
+        const token = await JWT.sign({ userId : user.id}, JWT_SIGNATURE, {expiresIn : 3600})
+        return { userErrors : [], token }
+
+    },
+    signup : async (_ : any, { credentials , name, bio } : SignupArgs, { prisma } : Context) : Promise<UserPayload>=> {
+        const { email, password } = credentials;
         const isEmail = validator.isEmail(email)
         if (!isEmail) return { userErrors : [{ message : "Invalid email"}], token : null}
         const isValidPassword = validator.isLength(password, { min : 5})
@@ -50,8 +74,15 @@ export const Mutation = {
         const token = await JWT.sign({ userId : user.id}, JWT_SIGNATURE, {expiresIn : 3600})
         return { userErrors : [], token }},
 
-        postCreate: async(_ : any, { title , content } : PostArgs, {prisma} : Context) :
+        postCreate: async(_ : any, { input } : { input : PostArgs}, {prisma, userInfo} : Context) :
         Promise<PostPayloadType>  => {
+            const { title, content } = input
+            if (!userInfo) return {
+                userErrors : [{
+                    message: "Forbidden Access (unathenticated)"
+                }],
+                post : null
+            }
             if (!title || !content){
                 return {
                     userErrors : [{
@@ -64,7 +95,7 @@ export const Mutation = {
                     data : {
                         title,
                         content,
-                        authorId : 1
+                        authorId : userInfo.userId
                     }
                 }
             )
