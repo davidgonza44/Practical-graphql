@@ -28,12 +28,14 @@ const GET_PROFILE = gql`
 export const Profile = () => {
     const { id } = useParams()
     const { loading, error, data } = useQuery(GET_PROFILE, {
-        variables: { userId : id}
+        variables: { userId : id},
+        fetchPolicy : "network-only"
     })
     if (error) return <h1>Error</h1>
     if (loading) return <h1>Loading...</h1>
     const {profile } = data
-    console.log(profile.bio)
+    console.log("Is my profile:", profile.isMyProfile)
+    console.log("Token exists:", !!localStorage.getItem("prisma-token"))
     return (
         <div>
 

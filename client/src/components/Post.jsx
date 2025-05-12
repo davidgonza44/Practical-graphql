@@ -34,12 +34,12 @@ const Post = ({ title, content, date, user, published, id, isMyProfile}) => {
 
     return(
         <div className="post" style={published === false ? {backgroundColor : "yellow"} : {}}>
-            <div className="post-btns">
+            <div className="post-btns mb-3">
             {isMyProfile && published == false && <button onClick={() => publishPost({ variables : {postId : id}})} className="post__btn">Publish</button>}
             {isMyProfile && published && <button onClick={() => unPublishPost({variables : {postId : id}})} className="post__btn">Unpublish</button>}
             </div>
             <div className="post__header">
-                <h3>{title}</h3>
+                <h3 className="me-3">{title}</h3>
                 <h4>Created At {`${formatedDate}`.split(" ").slice(0,3).join(" ")} by
                     {" "}{user}
                 </h4>

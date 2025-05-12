@@ -45,7 +45,7 @@ export const Signin = () => {
                     <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)}/>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label className=" w-100 text-start">Password</Form.Label>
+                    <Form.Label className="w-100 text-start">Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                 </Form.Group>
                 {message && <p style={{backgroundColor : 'blue', color : 'white', padding : '5px'}}>
