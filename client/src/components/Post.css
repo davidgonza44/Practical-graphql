@@ -1,0 +1,38 @@
+.post {
+    background-color: rgb(131, 176, 218);
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.post__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.post__header h4 {
+    font-size: 0.8rem;
+}
+
+
+.post__content {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.post__btn{
+    padding: 4px 6px;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    border: none;
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+}
+.post__btn:hover{
+    cursor: pointer;
+    background-color: darkmagenta
+}
+
+.post-btns{
+    display: flex;
+    
+}

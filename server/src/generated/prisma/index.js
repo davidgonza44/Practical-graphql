@@ -180,11 +180,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:nueva_contraseña@localhost:5432/db"
+        "value": null
       }
     }
   },
